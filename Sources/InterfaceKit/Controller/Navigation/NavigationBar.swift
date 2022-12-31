@@ -273,7 +273,7 @@ extension CGPoint {
     public var alpha: CGFloat {
         var alpha: CGFloat = 0
         if y > 0 {
-            alpha += y/100
+            alpha += y/88
             if alpha > 1 { alpha = 1 }
         } else {
             alpha = 0
