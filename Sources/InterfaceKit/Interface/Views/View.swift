@@ -95,6 +95,10 @@ extension UIView {
         get { tintColor }
         set { tintColor = newValue }
     }
+    public var hidden: Bool {
+        get { isHidden }
+        set { isHidden = newValue }
+    }
     public var corners: CACornerMask {
         get { layer.maskedCorners }
         set { layer.maskedCorners = newValue }

@@ -112,7 +112,7 @@ open class NavigationController: UINavigationController, ViewController {
     }
     
     private func setupUI() {
-        navigationBar.isHidden = true
+        navigationBar.hidden = true
         #if !os(tvOS)
         setupTransitions()
         setupInteractiveGestures()
@@ -217,7 +217,7 @@ extension ViewController {
 }
 extension NavigationController: TransitionHandlerDelegate {
     public func will(show controller: Controller) {
-        navigationBar.isHidden = true
+        navigationBar.hidden = true
         switch controller {
         case .modern(let controller):
             bar(for: controller)
@@ -227,7 +227,7 @@ extension NavigationController: TransitionHandlerDelegate {
         }
     }
     public func did(show controller: Controller) {
-        navigationBar.isHidden = true
+        navigationBar.hidden = true
     }
 }
 extension NavigationController: UIGestureRecognizerDelegate {

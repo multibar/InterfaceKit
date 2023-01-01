@@ -16,7 +16,7 @@ open class Text: UITextView {
         insets = .zero
         isSelectable = true
         isScrollEnabled = false
-        clipsToBounds = false
+        clipsToBounds = true
         delegate = self
         setup()
     }
