@@ -30,6 +30,7 @@ extension UILabel {
         }
         set(text: text, attributes: attributes)
     }
+    
     public func set(text: String?, attributes: Attributes, animated: Bool = false) {
         guard let text = text else {
             attributedText = nil

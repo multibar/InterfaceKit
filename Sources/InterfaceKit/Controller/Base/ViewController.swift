@@ -61,6 +61,11 @@ extension Container {
     }
 }
 extension UIViewController {
+    public func relayout() {
+        view.relayout()
+    }
+}
+extension UIViewController {
     public func presentable(to controller: UIViewController) -> Bool {
         guard let controllerA = controller as? ViewController,
               let controllerB = self as? ViewController
