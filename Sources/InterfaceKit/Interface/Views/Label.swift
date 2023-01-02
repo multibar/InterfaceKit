@@ -61,8 +61,8 @@ extension NSAttributedString {
         paragraph.alignment = attributes.typography.alignment
         paragraph.lineHeightMultiple = attributes.typography.spacing.line
         paragraph.paragraphSpacing = attributes.typography.spacing.line
-        paragraph.lineBreakMode = attributes.typography.lineBreakMode ?? .byTruncatingTail
         paragraph.hyphenationFactor = attributes.typography.hyphens ? 1.0 : 0.0
+        if let mode = attributes.typography.lineBreakMode { paragraph.lineBreakMode = mode }
         attributedString.addAttribute(.kern, value: attributes.typography.spacing.char, range: NSRange(location: 0, length: attributedString.length))
         attributedString.addAttribute(.font, value: attributes.typography.font, range: NSRange(location: 0, length: attributedString.length))
         attributedString.addAttribute(.strikethroughStyle, value: attributes.typography.strikethrough, range: NSRange(location: 0, length: attributedString.length))

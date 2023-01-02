@@ -94,6 +94,7 @@ extension NavigationController {
             stack.axis = .horizontal
             stack.layoutMargins = style.insets
             stack.isLayoutMarginsRelativeArrangement = true
+            stack.spacing = style.spacing.inter / 2
             stack.height(style.size.rawValue)
             let left = Stack()
             left.axis = .horizontal
@@ -224,11 +225,13 @@ extension NavigationController.Bar {
             public let left: CGFloat
             public let middle: CGFloat
             public let right: CGFloat
+            public let inter: CGFloat
             
-            public init(left: CGFloat = 16, middle: CGFloat = 16, right: CGFloat = 16) {
+            public init(left: CGFloat = 16, middle: CGFloat = 16, right: CGFloat = 16, inter: CGFloat = 16) {
                 self.left = left
                 self.middle = middle
                 self.right = right
+                self.inter = inter
             }
         }
         public enum Shadow {

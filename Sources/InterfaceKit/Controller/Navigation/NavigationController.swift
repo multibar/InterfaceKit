@@ -189,8 +189,12 @@ extension NavigationController {
     public func push(_ viewController: ViewController) {
         pushViewController(viewController, animated: true)
     }
-    public func pop() {
-        popViewController(animated: true)
+    public func pop(root: Bool = false) {
+        guard root else {
+            popViewController(animated: true)
+            return
+        }
+        popToRootViewController(animated: true)
     }
     public func updateBar() {
         guard let viewController else { return }
@@ -208,11 +212,19 @@ extension ViewController {
     public var navigation: NavigationController? {
         return navigationController as? NavigationController
     }
+    public var previous: ViewController? {
+        guard let viewControllers = navigation?.viewControllers,
+              let index = viewControllers.firstIndex(of: self),
+              viewControllers.count > 1,
+              index != 0
+        else { return nil }
+        return navigation?.viewControllers[index-1] as? ViewController
+    }
     public func push(_ viewController: ViewController, animated: Bool = true) {
         navigation?.push(viewController, animated: animated)
     }
-    public func pop() {
-        navigation?.pop()
+    public func pop(root: Bool = false) {
+        navigation?.pop(root: root)
     }
 }
 extension NavigationController: TransitionHandlerDelegate {

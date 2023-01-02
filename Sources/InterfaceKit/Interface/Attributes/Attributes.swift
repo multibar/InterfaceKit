@@ -20,7 +20,7 @@ public struct Attributes {
         
         public init(font         : UIFont = .systemFont(ofSize: 12, weight: .semibold),
                     alignment    : NSTextAlignment = .left,
-                    lineBreakMode: NSLineBreakMode? = .byTruncatingTail,
+                    lineBreakMode: NSLineBreakMode? = nil,
                     strikethrough: Bool = false,
                     hyphens      : Bool = false,
                     spacing      : Spacing = Spacing(line: 12, char: 0)) {
