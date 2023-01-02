@@ -50,3 +50,9 @@ extension Text: UITextViewDelegate {
         return false
     }
 }
+
+extension UITextField {
+    public func clear() {
+        text = nil
+    }
+}

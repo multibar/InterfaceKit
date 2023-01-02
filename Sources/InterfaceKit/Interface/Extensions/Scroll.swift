@@ -21,7 +21,7 @@ extension UIScrollView {
     
     /// Returns true if scroll at the bottom or if content size is less than scroll height.
     public var descended: Bool {
-        guard size.height >= frame.height else { return true }
+        guard (size.height + insets.top + insets.bottom) >= frame.height else { return true }
         return offset.y + frame.height - insets.bottom >= size.height
     }
     
