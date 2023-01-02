@@ -7,6 +7,9 @@ public enum Haptic {
     case selection
     case prepare
     
+    public static func prepare() {
+        Haptic.prepare.generate()
+    }
     public func generate() {
         switch self {
         case .impact(let style):

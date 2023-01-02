@@ -43,11 +43,11 @@ public enum FPS {
         case .maximum:
             return CAFrameRateRange(minimum: 80, maximum: 120, preferred: 120)
         case .lowered:
-            return CAFrameRateRange(minimum: 30, maximum: 48, preferred: 0)
+            return CAFrameRateRange(minimum: 30, maximum: 48, preferred: 48)
         case .cinema:
-            return CAFrameRateRange(minimum: 24, maximum: 30, preferred: 0)
+            return CAFrameRateRange(minimum: 24, maximum: 30, preferred: 30)
         case .minimum:
-            return CAFrameRateRange(minimum: 8, maximum: 15, preferred: 0)
+            return CAFrameRateRange(minimum: 8, maximum: 15, preferred: 15)
         case .explicit(let minimum, let maximum, let preferred):
             return CAFrameRateRange(minimum: minimum, maximum: maximum, preferred: preferred)
         case .default:
