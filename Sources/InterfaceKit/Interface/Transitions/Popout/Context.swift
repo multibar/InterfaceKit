@@ -36,7 +36,7 @@ extension Transitions.Popout {
             let new = direction == .forward ? newViewController.containerA : newViewController.containerB
             self.oldViewController = oldViewController
             self.newViewController = newViewController
-            if let old = old, let new = new, old.format == new.format, !oldViewController.traitCollection.segmented {
+            if let old = old, let new = new, old.format == new.format, !oldViewController.traits.segmented {
                 switch direction {
                 case .forward:
                     let transaction = UUID()

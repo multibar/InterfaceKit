@@ -16,7 +16,7 @@ public protocol ViewController: UIViewController, Router {
     var scroll       : UIScrollView? { get }
     func app(state: System.App.State)
     func user(state: System.User.State)
-    func update(trait collection: UITraitCollection)
+    func update(traits: UITraitCollection)
     func process(route: Route)
     func prepare()
     func rebuild()
@@ -67,6 +67,9 @@ extension Container {
     }
 }
 extension UIViewController {
+    public var traits: UITraitCollection {
+        return traitCollection
+    }
     public func relayout() {
         view.relayout()
     }

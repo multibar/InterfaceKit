@@ -7,7 +7,7 @@ import NukeExtensions
 extension Interface {
     public final class Manager {
         public static let shared = Manager()
-        public var traitCollection: UITraitCollection?
+        public var traits: UITraitCollection?
         public private(set) lazy var display = CADisplayLink(target: self, selector: #selector(step))
         
         public weak var adaptor: Adaptor? {

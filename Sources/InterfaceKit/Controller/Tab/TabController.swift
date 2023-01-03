@@ -108,20 +108,20 @@ open class TabController: UIViewController, ViewController {
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        update(trait: traitCollection)
+        update(traits: traits)
     }
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (coordinator) in
-            self.update(trait: self.traitCollection)
+            self.update(traits: self.traits)
         }, completion: nil)
     }
     open func animate(with viewController: ViewController, coordinator: UIViewControllerTransitionCoordinator? = nil) {}
     open func app(state: System.App.State) {}
     open func user(state: System.User.State) {}
-    open func update(trait collection: UITraitCollection) {
-        Interface.Manager.shared.traitCollection = collection
-        viewControllers.forEach({$0.update(trait: collection)})
+    open func update(traits: UITraitCollection) {
+        Interface.Manager.shared.traits = traits
+        viewControllers.forEach({$0.update(traits: traits)})
     }
     open func process(route: Route) {
         guard let selected = viewControllers.first(where: {$0.rootRoute == route}) else {

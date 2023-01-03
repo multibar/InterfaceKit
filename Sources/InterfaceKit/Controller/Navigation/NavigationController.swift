@@ -88,9 +88,9 @@ open class NavigationController: UINavigationController, ViewController {
     open func user(state: System.User.State) {
         (viewControllers as? [ViewController])?.forEach({$0.user(state: state)})
     }
-    open func update(trait collection: UITraitCollection) {
+    open func update(traits: UITraitCollection) {
         navBar?.layout()
-        (viewControllers as? [ViewController])?.forEach({$0.update(trait: collection)})
+        (viewControllers as? [ViewController])?.forEach({$0.update(traits: traits)})
     }
     open func process(route: Route) {
         viewController?.process(route: route)

@@ -15,7 +15,7 @@ open class Text: UITextView {
         textContainer.lineFragmentPadding = .zero
         insets = .zero
         isSelectable = true
-        isScrollEnabled = false
+        enabled = false
         clipsToBounds = true
         delegate = self
         setup()
