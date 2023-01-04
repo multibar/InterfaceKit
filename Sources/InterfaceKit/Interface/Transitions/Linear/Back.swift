@@ -3,7 +3,7 @@ import CoreKit
 
 @MainActor
 extension Transitions.Linear {
-    public final class Pop: NSObject, UIViewControllerAnimatedTransitioning {
+    public final class Back: NSObject, UIViewControllerAnimatedTransitioning {
         public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
             return 0.5
         }

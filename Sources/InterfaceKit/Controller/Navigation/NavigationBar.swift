@@ -242,7 +242,7 @@ extension NavigationController.Bar {
 }
 extension NavigationController.Bar: NavigationBarCellDelegate {
     public func back() {
-        viewController?.navigation?.pop()
+        viewController?.navigation?.back()
     }
 }
 extension Array where Element == NavigationController.Bar.Item {

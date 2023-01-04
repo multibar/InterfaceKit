@@ -28,8 +28,8 @@ public final class Interface {
     }
     private func setupNuke() {
         var configuration = ImagePipeline.Configuration.withDataCache
+        configuration.dataCache = try? DataCache(name: "bar.multi.wallet.images")
         configuration.dataCachePolicy = .storeAll
-        configuration.dataCache = try? DataCache(name: .disk)
         configuration.isProgressiveDecodingEnabled = false
         pipeline = ImagePipeline(configuration: configuration)
         ImagePipeline.shared = pipeline

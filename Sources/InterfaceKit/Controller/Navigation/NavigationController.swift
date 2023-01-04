@@ -141,7 +141,7 @@ open class NavigationController: UINavigationController, ViewController {
         case .none:
             handler.interaction = interaction
             popViewController(animated: true)
-        case .pop:
+        case .back:
             let translation = recognizer.translation(in: view)
             let percentage = max(0.0, min(1.0, translation.x / view.frame.width))
             switch recognizer.state {
@@ -185,28 +185,30 @@ open class NavigationController: UINavigationController, ViewController {
         }
     }
 }
-
 extension NavigationController {
-    public func push(_ viewController: ViewController) {
-        pushViewController(viewController, animated: true)
-    }
-    public func pop(root: Bool = false) {
-        guard root else {
-            popViewController(animated: true)
-            return
-        }
-        popToRootViewController(animated: true)
+    public var interaction: Transitions.Handler.Interaction {
+        guard let viewController = viewController,
+              let previousViewController = viewControllers.previous(before: viewController),
+              viewController.dismissable(to: previousViewController)
+        else { return .back }
+        return .dismiss
     }
     public func updateBar() {
         guard let viewController else { return }
         navBar?.set(viewController: viewController)
     }
-    public var interaction: Transitions.Handler.Interaction {
-        guard let viewController = viewController,
-              let previousViewController = viewControllers.previous(before: viewController),
-              viewController.dismissable(to: previousViewController)
-        else { return .pop }
-        return .dismiss
+}
+extension NavigationController {
+    public func push(_ viewController: ViewController, animated: Bool = true) {
+        pushViewController(viewController, animated: animated)
+    }
+    public func back(to distance: Distance = .previous, animated: Bool = true) {
+        switch distance {
+        case .root:
+            popToRootViewController(animated: animated)
+        case .previous:
+            popViewController(animated: animated)
+        }
     }
 }
 extension ViewController {
@@ -224,8 +226,8 @@ extension ViewController {
     public func push(_ viewController: ViewController, animated: Bool = true) {
         navigation?.push(viewController, animated: animated)
     }
-    public func pop(root: Bool = false) {
-        navigation?.pop(root: root)
+    public func back(to distance: NavigationController.Distance = .previous, animated: Bool = true) {
+        navigation?.back(to: distance, animated: animated)
     }
 }
 extension NavigationController: TransitionHandlerDelegate {
@@ -253,6 +255,12 @@ extension NavigationController: UIGestureRecognizerDelegate {
         default:
             return velocity.x > 0 && abs(velocity.x) > abs(velocity.y)
         }
+    }
+}
+extension NavigationController {
+    public enum Distance {
+        case root
+        case previous
     }
 }
 extension Array where Element == UIViewController {

@@ -78,11 +78,7 @@ open class TabController: UIViewController, ViewController {
                 $0.view.frame = view.bounds
                 $0.didMove(toParent: self)
             })
-            guard viewControllers.indices.contains(Settings.Interface.TabBar.selectedIndex) else {
-                viewController = viewControllers.first
-                return
-            }
-            viewController = viewControllers[Settings.Interface.TabBar.selectedIndex]
+            viewController = viewControllers.first
         }
     }
     open var navBar: NavigationController.Bar? {
@@ -132,7 +128,7 @@ open class TabController: UIViewController, ViewController {
             return
         }
         guard viewController?.rootRoute != route else {
-            (viewController as? NavigationController)?.pop()
+            (viewController as? NavigationController)?.back()
             return
         }
         viewController = selected

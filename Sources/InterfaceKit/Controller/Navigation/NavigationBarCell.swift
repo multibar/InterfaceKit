@@ -4,7 +4,6 @@ import CoreKit
 public protocol NavigationBarCellDelegate: AnyObject {
     func back()
 }
-
 extension NavigationController.Bar {
     public class Cell: View.Interactive {
         private let item: Item

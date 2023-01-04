@@ -8,7 +8,7 @@ public protocol TransitionHandlerDelegate: AnyObject {
 extension Transitions {
     public class Handler: NSObject {
         private let push    = Linear.Push()
-        private let pop     = Linear.Pop()
+        private let back    = Linear.Back()
         private let present = Popout.Present()
         private let dismiss = Popout.Dismiss()
         
@@ -24,13 +24,13 @@ extension Transitions.Handler: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         switch operation {
         case .push: return fromVC.presentable(to: toVC) ? present : push
-        case .pop : return fromVC.dismissable(to: toVC) ? dismiss : pop
+        case .pop : return fromVC.dismissable(to: toVC) ? dismiss : back
         default   : return nil
         }
     }
     public func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         switch interaction {
-        case .pop    : return linear
+        case .back   : return linear
         case .dismiss: return popout
         default      : return nil
         }
@@ -55,7 +55,7 @@ extension Transitions.Handler: UINavigationControllerDelegate {
 
 extension Transitions.Handler {
     public enum Interaction {
-        case pop
+        case back
         case dismiss
         case none
     }
