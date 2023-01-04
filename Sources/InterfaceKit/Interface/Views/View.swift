@@ -99,12 +99,16 @@ extension UIView {
         get { isHidden }
         set { isHidden = newValue }
     }
+    public var clips: Bool {
+        get { clipsToBounds }
+        set { clipsToBounds = newValue }
+    }
     public var corners: CACornerMask {
         get { layer.maskedCorners }
         set { layer.maskedCorners = newValue }
     }
     public func corner(radius: CGFloat, curve: CALayer.Curve = .continuous) {
-        clipsToBounds = true
+        clips = true
         layer.corner(radius: radius, curve: curve)
     }
     public func border(width: CGFloat) {

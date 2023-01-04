@@ -232,17 +232,18 @@ extension UIView {
         widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
-    public func center(in view: UIView, with size: CGSize? = nil) {
+    
+    public func center(in view: UIView) {
         centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        guard let size else { return }
+    }
+    public func center(in view: UIView, with size: CGSize) {
+        center(in: view)
         widthAnchor.constraint(equalToConstant: size.width).isActive = true
         heightAnchor.constraint(equalToConstant: size.height).isActive = true
     }
-    public func center(in view: UIView, ratio: CGFloat? = nil) {
-        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        guard let ratio else { return }
+    public func center(in view: UIView, ratio: CGFloat) {
+        center(in: view)
         widthAnchor.constraint(equalToConstant: ratio).isActive = true
         heightAnchor.constraint(equalToConstant: ratio).isActive = true
     }

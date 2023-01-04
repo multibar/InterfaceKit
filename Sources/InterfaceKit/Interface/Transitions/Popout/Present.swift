@@ -6,7 +6,7 @@ extension Transitions.Popout {
     public final class Present: NSObject, UIViewControllerAnimatedTransitioning {
         private var mask: UIView {
             let mask = UIView()
-            mask.clipsToBounds = true
+            mask.clips = true
             return mask
         }
         private var fade: UIView {

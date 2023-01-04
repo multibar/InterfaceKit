@@ -76,8 +76,11 @@ extension NavigationController.Bar {
         }
         
         open func set(highlighted: Bool) {
-            View.animate(duration: 0.33, spring: 1.0, velocity: 0.5, options: [.curveEaseInOut, .allowUserInteraction]) { [weak self] in
-                self?.stack.transform = highlighted ? .scale(to: 0.8) : .identity
+            View.animate(duration: 0.33,
+                         spring: 1.0,
+                         velocity: 0.5,
+                         options: [.curveEaseInOut, .allowUserInteraction]) {
+                self.stack.transform = highlighted ? .scale(to: 0.8) : .identity
             }
         }
     }
