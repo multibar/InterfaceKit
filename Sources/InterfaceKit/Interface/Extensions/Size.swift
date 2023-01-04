@@ -19,4 +19,8 @@ extension CGSize {
         return width/height
     }
 }
-
+extension CGSize {
+    public static func size(w: CGFloat, h: CGFloat) -> CGSize {
+        return CGSize(w: w, h: h)
+    }
+}
