@@ -120,7 +120,6 @@ open class TabController: UIViewController, ViewController {
     open func app(state: System.App.State) {}
     open func user(state: System.User.State) {}
     open func update(traits: UITraitCollection) {
-        Interface.Manager.shared.traits = traits
         viewControllers.forEach({$0.update(traits: traits)})
     }
     open func process(route: Route) {
