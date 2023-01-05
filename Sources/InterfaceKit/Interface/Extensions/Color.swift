@@ -8,6 +8,7 @@ extension UIColor {
     public static let x5CC489    = #colorLiteral(red: 0.3607843137, green: 0.768627451, blue: 0.537254902, alpha: 1)
     public static let x58ABF5    = #colorLiteral(red: 0.3450980392, green: 0.6705882353, blue: 0.9607843137, alpha: 1)
     public static let x8B93A1    = #colorLiteral(red: 0.5450980392, green: 0.5764705882, blue: 0.631372549, alpha: 1)
+    public static let x8B93A1_05 = #colorLiteral(red: 0.5450980392, green: 0.5764705882, blue: 0.631372549, alpha: 0.05)
     public static let x8B93A1_20 = #colorLiteral(red: 0.5450980392, green: 0.5764705882, blue: 0.631372549, alpha: 0.2)
     public static let xEEEFEF    = #colorLiteral(red: 0.9333333333, green: 0.937254902, blue: 0.937254902, alpha: 1)
     public static let xFFFFFF    = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
