@@ -242,7 +242,12 @@ extension NavigationController.Bar {
 }
 extension NavigationController.Bar: NavigationBarCellDelegate {
     public func back() {
-        viewController?.navigation?.back()
+        guard let viewController, let navigation = viewController.navigation else { return }
+        if navigation.rootViewController == viewController && navigation.presenting != nil {
+            navigation.dismiss(animated: true)
+        } else {
+            navigation.back()
+        }
     }
 }
 extension Array where Element == NavigationController.Bar.Item {
