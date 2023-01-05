@@ -1,6 +1,7 @@
 import UIKit
 
 open class Stack: UIStackView {
+    open var stacked = false
     open var highlighted: View.Interactive? {
         didSet {
             guard oldValue != highlighted else { return }
@@ -10,8 +11,19 @@ open class Stack: UIStackView {
             Haptic.selection.generate()
         }
     }
-    open var items: [View.Interactive]? {
-        return stacked.filter({$0 is View.Interactive}) as? [View.Interactive]
+    open var items: [View.Interactive] {
+        var items: [View.Interactive] = []
+        arranged.forEach { subview in
+            switch subview {
+            case let stack as Stack:
+                items.append(contentsOf: stack.items)
+            case let interactive as View.Interactive:
+                items.append(interactive)
+            default:
+                break
+            }
+        }
+        return items
     }
     public var haptics = false
     
@@ -27,48 +39,81 @@ open class Stack: UIStackView {
     open func setup() {}
     open override func addArrangedSubview(_ view: UIView) {
         super.addArrangedSubview(view)
-        guard let interactive = view as? View.Interactive else { return }
-        interactive.stacked = true
+        switch view {
+        case let interactive as View.Interactive:
+            interactive.stacked = true
+        case let stack as Stack:
+            stack.stacked = true
+        default:
+            break
+        }
     }
     
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        guard !stacked else { return }
         guard let location = touches.first?.location(in: self) else { return }
-        highlighted = items?.first{$0.frame.contains(location)}
+        highlighted = items.first{$0.convert($0.bounds, to: self).contains(location)}
     }
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        if let item = touches.first?.view as? View.Interactive {
-            item.touches = .finished(success: true)
-        } else if let location = touches.first?.location(in: self) {
-            self.items?.first{$0.frame.contains(location)}?.touches = .finished(success: true)
+        guard !stacked else { return }
+        if let location = touches.first?.location(in: self) {
+            items.first{$0.convert($0.bounds, to: self).contains(location)}?.touches = .finished(success: true)
         }
-        items?.forEach {$0.touches = .ended}
+        items.forEach {$0.touches = .ended}
         highlighted = nil
     }
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        items?.forEach {$0.touches = .cancelled}
+        guard !stacked else { return }
+        items.forEach {$0.touches = .cancelled}
         highlighted = nil
     }
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
+        guard !stacked else { return }
         guard let location = touches.first?.location(in: self) else { return }
-        highlighted = items?.first{$0.frame.contains(location)}
+        highlighted = items.first{$0.convert($0.bounds, to: self).contains(location)}
     }
 }
 
 extension UIStackView {
-    public var stacked: [UIView] {
+    public var arranged: [UIView] {
         return arrangedSubviews
     }
     public func append(_ subview: UIView) {
         addArrangedSubview(subview)
+        switch subview {
+        case let interactive as View.Interactive:
+            interactive.stacked = true
+        case let stack as Stack:
+            stack.stacked = true
+        default:
+            break
+        }
     }
     public func append(_ subviews: [UIView]) {
-        subviews.forEach({append($0)})
+        subviews.forEach { subview in
+            append(subview)
+            switch subview {
+            case let interactive as View.Interactive:
+                interactive.stacked = true
+            case let stack as Stack:
+                stack.stacked = true
+            default:
+                break
+            }
+        }
+    }
+    public func pop(_ subview: UIView? = nil) {
+        guard let subview = arrangedSubviews.first(where: {$0 == subview}) else {
+            arrangedSubviews.last?.removeFromSuperview()
+            return
+        }
+        subview.removeFromSuperview()
     }
     public func clear() {
-        stacked.forEach({$0.remove()})
+        arranged.forEach({$0.remove()})
     }
 }
