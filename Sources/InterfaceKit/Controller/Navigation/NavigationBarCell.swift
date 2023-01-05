@@ -24,8 +24,7 @@ extension NavigationController.Bar {
         public override var touches: View.Interactive.Touches {
             didSet {
                 switch touches {
-                case .finished(let action):
-                    guard action else { return }
+                case .success:
                     switch item {
                     case .back:
                         delegate?.back()

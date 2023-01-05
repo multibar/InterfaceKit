@@ -227,7 +227,7 @@ extension NavigationController.Bar {
             public let right: CGFloat
             public let inter: CGFloat
             
-            public init(left: CGFloat = 16, middle: CGFloat = 16, right: CGFloat = 16, inter: CGFloat = 16) {
+            public init(left: CGFloat = 8, middle: CGFloat = 8, right: CGFloat = 8, inter: CGFloat = 16) {
                 self.left = left
                 self.middle = middle
                 self.right = right

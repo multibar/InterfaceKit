@@ -59,7 +59,7 @@ open class Stack: UIStackView {
         super.touchesEnded(touches, with: event)
         guard !stacked else { return }
         if let location = touches.first?.location(in: self) {
-            items.first{$0.convert($0.bounds, to: self).contains(location)}?.touches = .finished(success: true)
+            items.first{$0.convert($0.bounds, to: self).contains(location)}?.touches = .success
         }
         items.forEach {$0.touches = .ended}
         highlighted = nil

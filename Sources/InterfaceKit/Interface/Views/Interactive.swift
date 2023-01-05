@@ -11,13 +11,13 @@ extension View {
         open var stacked = false
         open var highlighted = false
         open var highlightable = true
-        open var touches: Touches = .finished(success: false) {
+        open var touches: Touches = .success {
             didSet {
                 switch touches {
                 case .begun, .enter, .moved:
                     guard highlightable else { return }
                     highlighted = true
-                case .exit, .ended, .cancelled, .finished:
+                case .exit, .ended, .cancelled, .success:
                     guard highlightable else { return }
                     highlighted = false
                 }
@@ -38,7 +38,7 @@ extension View {
             super.touchesEnded(touches, with: event)
             guard !stacked else { return }
             guard let location = touches.first?.location(in: self) else { self.touches = .ended; return }
-            self.touches = bounds.contains(location) ? .finished(success: true) : .ended
+            self.touches = bounds.contains(location) ? .success : .ended
         }
         open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
             super.touchesCancelled(touches, with: event)
@@ -56,6 +56,6 @@ extension View {
 
 extension View.Interactive {
     public enum Touches {
-        case begun, enter, exit, ended, cancelled, finished(success: Bool), moved(to: CGPoint)
+        case begun, enter, exit, ended, cancelled, success, moved(to: CGPoint)
     }
 }
