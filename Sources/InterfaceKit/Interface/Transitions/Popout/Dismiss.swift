@@ -56,7 +56,7 @@ extension Transitions.Popout {
             
             fade.frame = interview.frame
             mask.frame = interview.frame
-            mask.corner(radius: .deviceCornerRadius)
+            mask.corner(radius: System.Device.cornerRadius == 0 ? 16 : .deviceCornerRadius)
             context.oldView.auto = false
             
             mask.add(context.oldView)
@@ -112,7 +112,7 @@ extension Transitions.Popout {
                     reserve.context.newViewController.rebuild()
                     reserve.mask.transform = .identity
                     reserve.mask.frame = reserve.newFrame
-                    reserve.mask.corner(radius: reserve.context.new.superview == nil ? .deviceCornerRadius : reserve.context.new.cornerRadius)
+                    reserve.mask.corner(radius: reserve.context.new.superview == nil ? System.Device.cornerRadius == 0 ? 16 : .deviceCornerRadius : reserve.context.new.cornerRadius)
                     reserve.mask.relayout()
                     if !reserve.context.misform {
                         reserve.context.oldView.transform = .scale(x: reserve.context.inverted.x, y: reserve.context.inverted.y)

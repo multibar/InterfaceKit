@@ -36,7 +36,7 @@ extension Transitions.Popout {
             
             fade.frame = interview.frame
             mask.frame = oldFrame
-            mask.corner(radius: context.new.cornerRadius)
+            mask.corner(radius: context.new.cornerRadius == 0 ? 16 : context.new.cornerRadius)
 
             if !context.misform {
                 context.newView.transform = .scale(x: context.directed.x, y: context.directed.y)
