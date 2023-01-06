@@ -220,6 +220,9 @@ extension UIView {
         return Constraint(constraint: constraint)
     }
     
+    public func box(in view: UIView, inset: CGFloat, safe: Bool = false) {
+        box(in: view, insets: .insets(all: inset), safe: safe)
+    }
     public func box(in view: UIView, insets: UIEdgeInsets = .zero, safe: Bool = false) {
         topAnchor.constraint(equalTo: safe ? view.safeAreaLayoutGuide.topAnchor : view.topAnchor, constant: insets.top).isActive = true
         rightAnchor.constraint(equalTo: safe ? view.safeAreaLayoutGuide.rightAnchor : view.rightAnchor , constant: -insets.right).isActive = true

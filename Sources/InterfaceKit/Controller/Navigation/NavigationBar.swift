@@ -154,7 +154,7 @@ extension NavigationController.Bar {
                     attributes: Attributes = .default,
                     separator : Separator = .none,
                     size      : Size = .regular,
-                    insets    : UIEdgeInsets = .insets(top: 0, left: 16, right: 16, bottom: 0),
+                    insets    : UIEdgeInsets = .insets(left: 16, right: 16),
                     spacing   : Spacing = Spacing(),
                     fill      : Bool = true) {
             self.background = background
@@ -274,7 +274,7 @@ extension NavigationController.Bar.Style {
 }
 extension UIViewController {
     internal func inset(top: CGFloat) {
-        additionalSafeAreaInsets = .insets(top: top, left: 0, right: 0, bottom: 0)
+        additionalSafeAreaInsets = .insets(top: top)
     }
 }
 extension CGPoint {
