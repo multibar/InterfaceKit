@@ -10,6 +10,7 @@ open class TabController: UIViewController, ViewController {
             selected.auto = false
             content.insert(selected, at: 0)
             selected.box(in: content)
+            view.relayout()
         }
     }
     
@@ -60,8 +61,8 @@ open class TabController: UIViewController, ViewController {
                     viewControllers.contains(where: {$0.identifier == viewController.identifier}),
                     oldValue?.route != viewController.route
             else { return }
-            animate(with: viewController)
             selected = viewController.view
+            animate(with: viewController)
         }
     }
     open var viewControllers: [ViewController] = [] {

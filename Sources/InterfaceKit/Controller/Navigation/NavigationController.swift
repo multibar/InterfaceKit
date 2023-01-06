@@ -119,19 +119,17 @@ open class NavigationController: UINavigationController, ViewController {
     }
     
     private func bar(for viewController: ViewController) {
-        Task {
-            guard viewController.navBar == nil, !viewController.navBarItems.empty || self.rootViewController.identifier != viewController.identifier else {
-                viewController.navBar?.layout()
-                return
-            }
-            let bar = Bar(viewController: viewController)
-            bar.auto = false
-            viewController.view.add(bar)
-            viewController.navBar = bar
-            bar.top(to: viewController.view.top)
-            bar.left(to: viewController.view.left)
-            bar.right(to: viewController.view.right)
+        guard viewController.navBar == nil, !viewController.navBarItems.empty || self.rootViewController.identifier != viewController.identifier else {
+            viewController.navBar?.layout()
+            return
         }
+        let bar = Bar(viewController: viewController)
+        bar.auto = false
+        viewController.view.add(bar)
+        viewController.navBar = bar
+        bar.top(to: viewController.view.top)
+        bar.left(to: viewController.view.left)
+        bar.right(to: viewController.view.right)
     }
     
     @objc
