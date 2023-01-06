@@ -1,14 +1,16 @@
 import UIKit
 
 open class Stack: UIStackView {
+    private let haptic = Haptic.Selector()
     open var stacked = false
     open var highlighted: View.Interactive? {
         didSet {
+            haptic.prepare()
             guard oldValue != highlighted else { return }
             oldValue?.touches = .ended
             highlighted?.touches = .begun
             guard haptics && highlighted != nil else { return }
-            Haptic.selection.generate()
+            haptic.generate()
         }
     }
     open var items: [View.Interactive] {
