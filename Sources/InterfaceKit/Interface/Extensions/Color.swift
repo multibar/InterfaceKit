@@ -13,6 +13,7 @@ extension UIColor {
     public static let xEEEFEF    = #colorLiteral(red: 0.9333333333, green: 0.937254902, blue: 0.937254902, alpha: 1)
     public static let xFFFFFF    = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     public static let xFFFFFF_05 = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.05)
+    public static let xFFFFFF_10 = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.1)
     public static let xFFFFFF_20 = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.2)
     public static let xF36655    = #colorLiteral(red: 0.9529411765, green: 0.4, blue: 0.3333333333, alpha: 1)
 }
