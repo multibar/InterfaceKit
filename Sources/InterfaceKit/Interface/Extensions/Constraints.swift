@@ -87,12 +87,23 @@ extension UIView {
     public func base(line: Constraint.Line,
                      to anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
                      constant: CGFloat = 0,
+                     rule: Constraint.Rule = .equal,
                      priority: UILayoutPriority? = nil,
                      active: Bool = true) -> Constraint {
         let constraint: NSLayoutConstraint = {
             switch line {
-            case .first: return firstBaselineAnchor.constraint(equalTo: anchor, constant: constant)
-            case .last: return lastBaselineAnchor.constraint(equalTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+            case .first:
+                switch rule {
+                case .equal: return firstBaselineAnchor.constraint(equalTo: anchor, constant: constant)
+                case .less: return firstBaselineAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+                case .more: return firstBaselineAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+                }
+            case .last:
+                switch rule {
+                case .equal: return lastBaselineAnchor.constraint(equalTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+                case .less: return lastBaselineAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+                case .more: return lastBaselineAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+                }
             }
         }()
         if let priority { constraint.priority = priority }
@@ -102,9 +113,16 @@ extension UIView {
     @discardableResult
     public func top(to anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
                     constant: CGFloat = 0,
+                    rule: Constraint.Rule = .equal,
                     priority: UILayoutPriority? = nil,
                     active: Bool = true) -> Constraint {
-        let constraint = topAnchor.constraint(equalTo: anchor, constant: constant)
+        let constraint: NSLayoutConstraint = {
+            switch rule {
+            case .equal: return topAnchor.constraint(equalTo: anchor, constant: constant)
+            case .less: return topAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+            case .more: return topAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+            }
+        }()
         if let priority { constraint.priority = priority }
         constraint.isActive = active
         return Constraint(constraint: constraint)
@@ -112,9 +130,16 @@ extension UIView {
     @discardableResult
     public func left(to anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
                      constant: CGFloat = 0,
+                     rule: Constraint.Rule = .equal,
                      priority: UILayoutPriority? = nil,
                      active: Bool = true) -> Constraint {
-        let constraint = leftAnchor.constraint(equalTo: anchor, constant: constant)
+        let constraint: NSLayoutConstraint = {
+            switch rule {
+            case .equal: return leftAnchor.constraint(equalTo: anchor, constant: constant)
+            case .less: return leftAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+            case .more: return leftAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+            }
+        }()
         if let priority { constraint.priority = priority }
         constraint.isActive = active
         return Constraint(constraint: constraint)
@@ -122,9 +147,16 @@ extension UIView {
     @discardableResult
     public func leading(to anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
                         constant: CGFloat = 0,
+                        rule: Constraint.Rule = .equal,
                         priority: UILayoutPriority? = nil,
                         active: Bool = true) -> Constraint {
-        let constraint = leadingAnchor.constraint(equalTo: anchor, constant: constant)
+        let constraint: NSLayoutConstraint = {
+            switch rule {
+            case .equal: return leadingAnchor.constraint(equalTo: anchor, constant: constant)
+            case .less: return leadingAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+            case .more: return leadingAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+            }
+        }()
         if let priority { constraint.priority = priority }
         constraint.isActive = active
         return Constraint(constraint: constraint)
@@ -132,9 +164,16 @@ extension UIView {
     @discardableResult
     public func right(to anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
                       constant: CGFloat = 0,
+                      rule: Constraint.Rule = .equal,
                       priority: UILayoutPriority? = nil,
                       active: Bool = true) -> Constraint {
-        let constraint = rightAnchor.constraint(equalTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+        let constraint: NSLayoutConstraint = {
+            switch rule {
+            case .equal: return rightAnchor.constraint(equalTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+            case .less: return rightAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+            case .more: return rightAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+            }
+        }()
         if let priority { constraint.priority = priority }
         constraint.isActive = active
         return Constraint(constraint: constraint)
@@ -142,9 +181,16 @@ extension UIView {
     @discardableResult
     public func trailing(to anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
                          constant: CGFloat = 0,
+                         rule: Constraint.Rule = .equal,
                          priority: UILayoutPriority? = nil,
                          active: Bool = true) -> Constraint {
-        let constraint = trailingAnchor.constraint(equalTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+        let constraint: NSLayoutConstraint = {
+            switch rule {
+            case .equal: return trailingAnchor.constraint(equalTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+            case .less: return trailingAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+            case .more: return trailingAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+            }
+        }()
         if let priority { constraint.priority = priority }
         constraint.isActive = active
         return Constraint(constraint: constraint)
@@ -152,9 +198,16 @@ extension UIView {
     @discardableResult
     public func bottom(to anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
                        constant: CGFloat = 0,
+                       rule: Constraint.Rule = .equal,
                        priority: UILayoutPriority? = nil,
                        active: Bool = true) -> Constraint {
-        let constraint = bottomAnchor.constraint(equalTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+        let constraint: NSLayoutConstraint = {
+            switch rule {
+            case .equal: return bottomAnchor.constraint(equalTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+            case .less: return bottomAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+            case .more: return bottomAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant < 0.0 ? abs(constant) : -constant)
+            }
+        }()
         if let priority { constraint.priority = priority }
         constraint.isActive = active
         return Constraint(constraint: constraint)
@@ -162,9 +215,16 @@ extension UIView {
     @discardableResult
     public func centerX(to anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
                         constant: CGFloat = 0,
+                        rule: Constraint.Rule = .equal,
                         priority: UILayoutPriority? = nil,
                         active: Bool = true) -> Constraint {
-        let constraint = centerXAnchor.constraint(equalTo: anchor, constant: constant)
+        let constraint: NSLayoutConstraint = {
+            switch rule {
+            case .equal: return centerXAnchor.constraint(equalTo: anchor, constant: constant)
+            case .less: return centerXAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+            case .more: return centerXAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+            }
+        }()
         if let priority { constraint.priority = priority }
         constraint.isActive = active
         return Constraint(constraint: constraint)
@@ -172,9 +232,16 @@ extension UIView {
     @discardableResult
     public func centerY(to anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
                         constant: CGFloat = 0,
+                        rule: Constraint.Rule = .equal,
                         priority: UILayoutPriority? = nil,
                         active: Bool = true) -> Constraint {
-        let constraint = centerYAnchor.constraint(equalTo: anchor, constant: constant)
+        let constraint: NSLayoutConstraint = {
+            switch rule {
+            case .equal: return centerYAnchor.constraint(equalTo: anchor, constant: constant)
+            case .less: return centerYAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+            case .more: return centerYAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+            }
+        }()
         if let priority { constraint.priority = priority }
         constraint.isActive = active
         return Constraint(constraint: constraint)
@@ -183,9 +250,16 @@ extension UIView {
     public func width(to anchor: NSLayoutDimension,
                       multiplier: CGFloat = 1,
                       constant: CGFloat = 0,
+                      rule: Constraint.Rule = .equal,
                       priority: UILayoutPriority? = nil,
                       active: Bool = true) -> Constraint {
-        let constraint = widthAnchor.constraint(equalTo: anchor, multiplier: multiplier, constant: constant)
+        let constraint: NSLayoutConstraint = {
+            switch rule {
+            case .equal: return widthAnchor.constraint(equalTo: anchor, multiplier: multiplier, constant: constant)
+            case .less: return widthAnchor.constraint(lessThanOrEqualTo: anchor, multiplier: multiplier, constant: constant)
+            case .more: return widthAnchor.constraint(greaterThanOrEqualTo: anchor, multiplier: multiplier, constant: constant)
+            }
+        }()
         if let priority { constraint.priority = priority }
         constraint.isActive = active
         return Constraint(constraint: constraint)
@@ -203,9 +277,16 @@ extension UIView {
     public func height(to anchor: NSLayoutDimension,
                        multiplier: CGFloat = 1,
                        constant: CGFloat = 0,
+                       rule: Constraint.Rule = .equal,
                        priority: UILayoutPriority? = nil,
                        active: Bool = true) -> Constraint {
-        let constraint = heightAnchor.constraint(equalTo: anchor, multiplier: multiplier, constant: constant)
+        let constraint: NSLayoutConstraint = {
+            switch rule {
+            case .equal: return heightAnchor.constraint(equalTo: anchor, multiplier: multiplier, constant: constant)
+            case .less: return heightAnchor.constraint(lessThanOrEqualTo: anchor, multiplier: multiplier, constant: constant)
+            case .more: return heightAnchor.constraint(greaterThanOrEqualTo: anchor, multiplier: multiplier, constant: constant)
+            }
+        }()
         if let priority { constraint.priority = priority }
         constraint.isActive = active
         return Constraint(constraint: constraint)
@@ -268,5 +349,10 @@ extension Constraint {
     public enum Line {
         case first
         case last
+    }
+    public enum Rule {
+        case equal
+        case less
+        case more
     }
 }
