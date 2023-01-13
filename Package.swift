@@ -21,7 +21,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/kean/Nuke.git",
-            from: "11.5.0"
+            from: "11.5.3"
         ),
         .package(
             url: "https://github.com/airbnb/lottie-ios.git",
