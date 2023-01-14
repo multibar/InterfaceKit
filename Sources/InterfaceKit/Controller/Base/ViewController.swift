@@ -46,10 +46,10 @@ extension ViewController {
 }
 extension ViewController {
     public var hasNavBar: Bool {
-        return !navBarItems.empty || navigation?.rootViewController != self
+        return !navBarItems.empty
     }
     public var navBarOffsets: Bool {
-        return true
+        return false
     }
     public var presented: ViewController? {
         return presentedViewController as? ViewController

@@ -10,7 +10,8 @@ extension Transitions.Linear {
         
         public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
             guard let sender = transitionContext.viewController(forKey: .from),
-            let recipient = transitionContext.viewController(forKey: .to) else { return }
+                  let recipient = transitionContext.viewController(forKey: .to)
+            else { return }
             display(fps: .maximum)
             let container = transitionContext.containerView
             let dim = UIView(frame: container.bounds)
