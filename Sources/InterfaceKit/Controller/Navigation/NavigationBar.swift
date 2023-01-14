@@ -23,7 +23,7 @@ extension NavigationController {
                 oldValue.remove()
                 stack.auto = false
                 add(stack)
-                inset = stack.top(to: top, constant: Layout.SafeArea.top, active: true)
+                inset = stack.top(to: top, constant: style.size.inset, active: true)
                 stack.bottom(to: bottom)
                 stack.left(to: safeLeft)
                 stack.right(to: safeRight)
@@ -42,7 +42,7 @@ extension NavigationController {
         
         public func layout() {
             guard System.App.state != .background else { return }
-            inset.constant = Layout.SafeArea.top
+            inset.constant = style.size.inset
             relayout()
         }
         
@@ -69,13 +69,13 @@ extension NavigationController {
                 let style = viewController.navBarStyle
                 let items = viewController.navigation?.rootViewController.identifier == viewController.identifier ? viewController.navBarItems : viewController.navBarItems.backed(with: style.attributes)
                 let stack = stack(from: items, style: style)
-                viewController.inset(top: style.size.rawValue)
+                viewController.inset(top: style.size.height)
                 guard animated else {
                     self.style = style
                     self.stack = stack
                     return
                 }
-                stack.frame = CGRect(x: self.stack.frame.origin.x, y: self.stack.frame.origin.y, w: self.stack.frame.width, h: style.size.rawValue)
+                stack.frame = CGRect(x: self.stack.frame.origin.x, y: self.stack.frame.origin.y, w: self.stack.frame.width, h: style.size.height)
                 add(stack)
                 View.animate(duration: 0.33, options: [.curveEaseOut, .allowUserInteraction]) {
                     self.style = style
@@ -95,7 +95,7 @@ extension NavigationController {
             stack.layoutMargins = style.insets
             stack.isLayoutMarginsRelativeArrangement = true
             stack.spacing = style.spacing.inter / 2
-            stack.height(style.size.rawValue)
+            stack.height(style.size.height)
             let left = Stack()
             left.axis = .horizontal
             left.alignment = .fill
@@ -213,12 +213,36 @@ extension NavigationController.Bar {
                 }
             }
         }
-        public enum Size: CGFloat {
-            case regular = 44
-            case clipped = 0
+        public enum Size {
+            case large
+            case regular
+            case clipped
             
-            public var estimated: CGFloat {
-                return rawValue + Layout.SafeArea.top
+            public var inset: CGFloat {
+                switch self {
+                case .clipped:
+                    return 0
+                case .large, .regular:
+                    return Layout.SafeArea.top
+                }
+            }
+            public var height: CGFloat {
+                switch self {
+                case .large:
+                    return 88
+                case .regular, .clipped:
+                    return 44
+                }
+            }
+            public static func estimated(for controller: ViewController) -> CGFloat {
+                guard !controller.navBarItems.empty else { return 0.0 }
+                let size = controller.navBarStyle.size
+                switch size {
+                case .clipped:
+                    return size.height
+                case .large, .regular:
+                    return size.height + Layout.SafeArea.top
+                }
             }
         }
         public struct Spacing {

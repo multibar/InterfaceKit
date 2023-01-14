@@ -21,7 +21,7 @@ extension UIColor {
 // MARK: - Hex Color
 extension UIColor {
     public convenience init?(hex: String?) {
-        guard let hex = hex else { return nil }
+        guard let hex else { return nil }
         self.init(hex: hex)
     }
     public convenience init(hex: String) {

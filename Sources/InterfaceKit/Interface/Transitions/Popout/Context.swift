@@ -64,7 +64,7 @@ extension Transitions.Popout {
             self.oldView = oldViewController.view
             self.offsetY = (oldViewController.scroll?.offset.y ?? 0) + (oldViewController.scroll?.insets.top ?? 0)
             self.newView = newViewController.view
-            self.navBarY = newViewController.navBarOffsets ? newViewController.navBar == nil ? 0 : newViewController.navBarStyle.size.estimated : 0
+            self.navBarY = newViewController.navBarY
         }
     }
 }
@@ -111,5 +111,11 @@ fileprivate class _Container: UIView, Container {
 extension CGRect {
     internal func corrected(with offsetY: CGFloat) -> CGRect {
         return CGRect(x: origin.x, y: origin.y + offsetY, w: width, h: height)
+    }
+}
+
+extension ViewController {
+    fileprivate var navBarY: CGFloat {
+        return navBarOffsets ? navBar == nil ? 0.0 : NavigationController.Bar.Style.Size.estimated(for: self) : 0.0
     }
 }

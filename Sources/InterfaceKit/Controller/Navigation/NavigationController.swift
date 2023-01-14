@@ -98,17 +98,6 @@ open class NavigationController: UINavigationController, ViewController {
     open func prepare() {}
     open func rebuild() {}
     open func destroy() {}
-        
-    private func setupTransitions() {
-        handler.delegate = self
-        delegate = handler
-    }
-    
-    private func setupInteractiveGestures() {
-        pan.addTarget(self, action: #selector(panned(_:)))
-        pan.delegate = self
-        view.add(gesture: pan)
-    }
     
     private func setupUI() {
         navigationBar.hidden = true
@@ -117,9 +106,18 @@ open class NavigationController: UINavigationController, ViewController {
         setupInteractiveGestures()
         #endif
     }
+    private func setupTransitions() {
+        handler.delegate = self
+        delegate = handler
+    }
+    private func setupInteractiveGestures() {
+        pan.addTarget(self, action: #selector(panned(_:)))
+        pan.delegate = self
+        view.add(gesture: pan)
+    }
     
     private func bar(for viewController: ViewController) {
-        guard viewController.navBar == nil, !viewController.navBarItems.empty || self.rootViewController.identifier != viewController.identifier else {
+        guard viewController.navBar == nil, !viewController.navBarItems.empty else {
             viewController.navBar?.layout()
             return
         }
