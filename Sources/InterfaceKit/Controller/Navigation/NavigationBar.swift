@@ -234,12 +234,14 @@ extension NavigationController.Bar {
                     return 44
                 }
             }
-            public var estimated: CGFloat {
-                switch self {
+            public static func estimated(for controller: ViewController) -> CGFloat {
+                guard !controller.navBarItems.empty else { return 0.0 }
+                let size = controller.navBarStyle.size
+                switch size {
                 case .clipped:
-                    return height
+                    return size.height
                 case .large, .regular:
-                    return height + Layout.SafeArea.top
+                    return size.height + Layout.SafeArea.top
                 }
             }
         }

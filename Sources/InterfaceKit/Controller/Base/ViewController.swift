@@ -45,9 +45,6 @@ extension ViewController {
     }
 }
 extension ViewController {
-    public var hasNavBar: Bool {
-        return !navBarItems.empty
-    }
     public var navBarOffsets: Bool {
         return false
     }
