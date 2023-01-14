@@ -34,7 +34,7 @@ extension NavigationController {
         private weak var viewController: ViewController?
         public required init(viewController: ViewController) {
             super.init(frame: .zero)
-            set(viewController: viewController, animated: false)
+            set(viewController: viewController)
         }
         public required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
@@ -63,28 +63,30 @@ extension NavigationController {
             separator.height(0.33)
         }
         
-        public func set(viewController: ViewController, animated: Bool = true) {
+        public func set(viewController: ViewController) {
             self.viewController = viewController
             Task { await MainActor.run {
                 let style = viewController.navBarStyle
                 let items = viewController.navigation?.rootViewController.identifier == viewController.identifier ? viewController.navBarItems : viewController.navBarItems.backed(with: style.attributes)
                 let stack = stack(from: items, style: style)
+                let hidden = viewController.navBarHidden
+                set(hidden: hidden)
                 viewController.inset(top: style.size.height)
-                guard animated else {
-                    self.style = style
-                    self.stack = stack
-                    return
-                }
-                stack.frame = CGRect(x: self.stack.frame.origin.x, y: self.stack.frame.origin.y, w: self.stack.frame.width, h: style.size.height)
-                add(stack)
-                View.animate(duration: 0.33, options: [.curveEaseOut, .allowUserInteraction]) {
-                    self.style = style
-                    self.stack.alpha = 0
-                    stack.alpha = 1
-                } completion: { _ in
-                    self.stack = stack
-                }
+                self.style = style
+                self.stack = stack
+                self.set(hidden: hidden)
             }}
+        }
+        public func set(hidden: Bool, animated: Bool = true) {
+            let bar = self
+            View.animate(duration: animated ? 0.5 : 0.0,
+                         spring: 1.0,
+                         velocity: 1.0,
+                         interactive: !animated,
+                         options: [.allowUserInteraction, .curveLinear]) {
+                bar.alpha = hidden ? 0.0 : 1.0
+                bar.transform = hidden ? .move(y: -bar.frame.height) : .identity
+            }
         }
         
         private func stack(from items: [Item], style: Style) -> Stack {
@@ -235,7 +237,7 @@ extension NavigationController.Bar {
                 }
             }
             public static func estimated(for controller: ViewController) -> CGFloat {
-                guard !controller.navBarItems.empty else { return 0.0 }
+                guard !controller.navBarItems.empty && !controller.navBarHidden else { return 0.0 }
                 let size = controller.navBarStyle.size
                 switch size {
                 case .clipped:
@@ -285,7 +287,7 @@ extension Array where Element == NavigationController.Bar.Item {
         })
         guard !backed else { return self }
         var items = self
-        items.insert(.back(attributes: attributes), at: 0)
+        items.insert(.back(direction: .left), at: 0)
         return items
     }
 }

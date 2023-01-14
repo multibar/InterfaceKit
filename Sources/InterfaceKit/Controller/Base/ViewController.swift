@@ -7,6 +7,7 @@ public protocol ViewController: UIViewController, Router {
     var navBar       : NavigationController.Bar? { get set }
     var navBarStyle  : NavigationController.Bar.Style { get }
     var navBarItems  : [NavigationController.Bar.Item] { get }
+    var navBarHidden : Bool { get }
     var navBarOffsets: Bool { get }
     var forcePresent : Bool { get }
     var containerA   : Container? { get }

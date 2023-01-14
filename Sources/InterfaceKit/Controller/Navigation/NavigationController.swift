@@ -58,6 +58,9 @@ open class NavigationController: UINavigationController, ViewController {
     open var navBarItems: [NavigationController.Bar.Item] {
         return viewController?.navBarItems ?? []
     }
+    open var navBarHidden: Bool {
+        return viewController?.navBarHidden ?? false
+    }
     
     private let handler = Transitions.Handler()
     private let pan = UIPanGestureRecognizer()
@@ -188,10 +191,6 @@ extension NavigationController {
               viewController.dismissable(to: previousViewController)
         else { return .back }
         return .dismiss
-    }
-    public func updateBar() {
-        guard let viewController else { return }
-        navBar?.set(viewController: viewController)
     }
 }
 extension NavigationController {

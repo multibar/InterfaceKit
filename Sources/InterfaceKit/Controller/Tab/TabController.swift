@@ -92,6 +92,9 @@ open class TabController: UIViewController, ViewController {
     open var navBarItems: [NavigationController.Bar.Item] {
         return viewController?.navBarItems ?? []
     }
+    open var navBarHidden: Bool {
+        return viewController?.navBarHidden ?? false
+    }
     
     open override func viewDidLoad() {
         super.viewDidLoad()

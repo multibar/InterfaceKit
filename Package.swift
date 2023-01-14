@@ -43,7 +43,8 @@ let package = Package(
                 .product(name: "Lottie", package: "lottie-ios")
             ],
             resources: [
-                .process("Resources/Assets/chevron.pdf")
+                .process("Resources/Assets/chevron_left.pdf"),
+                .process("Resources/Assets/chevron_down.pdf")
             ]
         ),
         .testTarget(

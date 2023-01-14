@@ -26,8 +26,12 @@ extension NavigationController.Bar {
                 switch touches {
                 case .success:
                     switch item {
-                    case .back:
-                        delegate?.back()
+                    case .back(_, let action):
+                        guard let action else {
+                            delegate?.back()
+                            break
+                        }
+                        action()
                     default:
                         item.action?()
                     }
@@ -43,8 +47,8 @@ extension NavigationController.Bar {
             self.delegate = delegate
             var highlightable = false
             switch item {
-            case .back(let attributes):
-                let imageView = UIImageView(image: Self.chevron.withTintColor(attributes.color))
+            case .back(let direction, _):
+                let imageView = UIImageView(image: direction.icon)
                 imageView.contentMode = .scaleAspectFit
                 imageView.width(32)
                 stack.append(imageView)
@@ -84,7 +88,13 @@ extension NavigationController.Bar {
         }
     }
 }
-
-extension NavigationController.Bar.Cell {
-    fileprivate static let chevron = UIImage.pdf(from: Bundle.module.url(forResource: "chevron", withExtension: "pdf")) ?? UIImage()
+extension NavigationController.Bar.Item.Back.Direction {
+    fileprivate var icon: UIImage? {
+        switch self {
+        case .left: return Self.chevron_left
+        case .down: return Self.chevron_down
+        }
+    }
+    fileprivate static let chevron_left = UIImage.pdf(from: Bundle.module.url(forResource: "chevron_left", withExtension: "pdf")) ?? UIImage()
+    fileprivate static let chevron_down = UIImage.pdf(from: Bundle.module.url(forResource: "chevron_down", withExtension: "pdf")) ?? UIImage()
 }

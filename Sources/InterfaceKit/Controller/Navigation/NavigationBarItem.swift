@@ -2,16 +2,17 @@ import UIKit
 
 extension NavigationController.Bar {
     public enum Item {
-        case back(attributes: Attributes)
+        case back(direction: Back.Direction, action: (() -> Void)? = nil)
         case icon(UIImage?, attributes: Attributes, position: Position, width: CGFloat? = nil, highlightable: Bool = true, action: () -> Void = {})
         case view(UIView, attributes: Attributes, position: Position, width: CGFloat? = nil, highlightable: Bool = true, action: () -> Void = {})
         
         public var attributes: Attributes {
             switch self {
-            case .back(let attributes),
-                 .icon(_, let attributes, _, _, _, _),
+            case .icon(_, let attributes, _, _, _, _),
                  .view(_, let attributes, _, _, _, _):
                 return attributes
+            default:
+                return .default
             }
         }
         
@@ -45,5 +46,11 @@ extension NavigationController.Bar {
 extension NavigationController.Bar.Item {
     public enum Position {
         case left, middle, right
+    }
+    public struct Back {
+        public enum Direction {
+            case left
+            case down
+        }
     }
 }
