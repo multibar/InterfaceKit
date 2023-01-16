@@ -79,5 +79,21 @@ extension UITraitCollection {
                 return false
             }
         }
+        public var regular: Bool {
+            switch self {
+            case .regular(let limited):
+                return !limited
+            default:
+                return false
+            }
+        }
+        public var compact: Bool {
+            switch self {
+            case .compact:
+                return true
+            default:
+                return false
+            }
+        }
     }
 }

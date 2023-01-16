@@ -59,6 +59,7 @@ extension View {
 }
 
 extension UIView {
+    public var traits: UITraitCollection { traitCollection }
     public var interactive: Bool {
         get { isUserInteractionEnabled }
         set { isUserInteractionEnabled = newValue }
