@@ -12,7 +12,7 @@ public struct Layout {
     public struct SafeArea {
         public static var top: CGFloat {
             let top = keyWindow?.safeAreaInsets.top ?? 0
-            guard System.Device.hasDynamicIsland else { return top }
+            guard System.Device.island else { return top }
             return top == 59 ? 54 : top
         }
         public static var bottom: CGFloat {

@@ -4,10 +4,10 @@ import DeviceKit
 import CoreGraphics
 
 extension System.Device {
-    public static var cornerRadius: CGFloat {
+    public static let radius: CGFloat = {
         #if os(iOS)
-        if Device.current.hasRoundedDisplayCorners {
-            switch Device.current {
+        if current.hasRoundedDisplayCorners {
+            switch current {
             case .iPhoneX, .iPhoneXS, .iPhoneXSMax, .iPhone11Pro, .iPhone11ProMax:
                 return 39.0
             case .iPhoneXR, .iPhone11:
@@ -29,12 +29,10 @@ extension System.Device {
         #else
         return 0
         #endif
-    }
+    }()
 }
 extension CGFloat {
-    public static var deviceCornerRadius: CGFloat {
-        return System.Device.cornerRadius
-    }
+    public static let device = System.Device.radius
 }
 extension UIBezierPath {
     private static let ellipseCoefficient: CGFloat = 1.28195

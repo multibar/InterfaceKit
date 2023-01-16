@@ -46,7 +46,7 @@ public final class Interface {
 }
 extension Interface: InterfaceBridge {
     public var device: String {
-        return "\(DeviceKit.Device.current)"
+        return "\(System.Device.current)"
     }
     public func app(state: System.App.State) {}
     public func user(state: System.User.State) {}

@@ -65,7 +65,7 @@ extension Transitions.Popout {
         private func animations(mask: UIView, new view: UIView, fade: UIView, interview: UIView) -> () -> Void {
             return {
                 mask.frame = interview.frame
-                mask.corner(radius: .deviceCornerRadius)
+                mask.corner(radius: .device)
                 view.transform = .identity
                 view.frame = interview.frame
                 fade.alpha = 0.33
