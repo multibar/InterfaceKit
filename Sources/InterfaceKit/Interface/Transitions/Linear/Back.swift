@@ -7,7 +7,6 @@ extension Transitions.Linear {
         public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
             return 0.5
         }
-        
         public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
             guard let sender = transitionContext.viewController(forKey: .from),
                   let recipient = transitionContext.viewController(forKey: .to)
@@ -17,6 +16,7 @@ extension Transitions.Linear {
             let dim = UIView(frame: container.bounds)
             dim.color = .x000000
             dim.alpha = 0.33
+            sender.view.corner(radius: .device)
             recipient.view.frame = CGRect(origin: .point(x: -container.bounds.width/4, y: 0), size: container.bounds.size)
             container.insert(dim, below: sender.view)
             container.insert(recipient.view, below: dim)
@@ -41,6 +41,7 @@ extension Transitions.Linear {
             return {
                 recipient.view.frame = CGRect(origin: .zero, size: container.bounds.size)
                 sender.view.frame = CGRect(origin: .point(x: container.bounds.width, y: 0), size: container.bounds.size)
+                sender.view.corner(radius: 16.0)
                 dim.alpha = 0
             }
         }

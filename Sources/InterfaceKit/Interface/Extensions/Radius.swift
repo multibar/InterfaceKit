@@ -31,8 +31,27 @@ extension System.Device {
         #endif
     }()
 }
+extension UIView {
+    public var radius: CGFloat {
+        get { layer.cornerRadius }
+        set { layer.cornerRadius = newValue }
+    }
+}
 extension CGFloat {
     public static let device = System.Device.radius
+}
+extension CACornerMask {
+    public static var leftTop: CACornerMask { layerMinXMinYCorner }
+    public static var leftBot: CACornerMask { layerMinXMaxYCorner }
+    public static var rightTop: CACornerMask { layerMaxXMinYCorner }
+    public static var rightBot: CACornerMask { layerMaxXMaxYCorner }
+    
+    public static var all: CACornerMask { [.leftTop, .leftBot, .rightTop, .rightBot] }
+    public static var top: CACornerMask { [.leftTop, .rightTop] }
+    public static var bot: CACornerMask { [.leftBot, .rightBot] }
+    public static var left: CACornerMask { [.leftTop, .leftBot] }
+    public static var right: CACornerMask { [.rightTop, .rightBot] }
+    public static var none: CACornerMask { [] }
 }
 extension UIBezierPath {
     private static let ellipseCoefficient: CGFloat = 1.28195

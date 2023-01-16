@@ -29,7 +29,6 @@ extension Transitions.Popout {
         public func update(translation: CGPoint) {
             self.translation = translation
         }
-        
         public func update(percentage: CGFloat) {
             guard percentage < maximum else { return }
             self.scale = 1.0 - percentage
@@ -38,7 +37,6 @@ extension Transitions.Popout {
         public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
             return 0.66
         }
-        
         public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
             guard let context = Context(from: transitionContext, direction: .backward) else {
                 transitionContext.completeTransition(true)
@@ -112,7 +110,7 @@ extension Transitions.Popout {
                     reserve.context.newViewController.rebuild()
                     reserve.mask.transform = .identity
                     reserve.mask.frame = reserve.newFrame
-                    reserve.mask.corner(radius: reserve.context.new.superview == nil ? System.Device.radius == 0 ? 16 : .device : reserve.context.new.cornerRadius)
+                    reserve.mask.corner(radius: reserve.context.new.superview == nil ? System.Device.radius == 0.0 ? 16.0 : .device : reserve.context.new.radius)
                     reserve.mask.relayout()
                     if !reserve.context.misform {
                         reserve.context.oldView.transform = .scale(x: reserve.context.inverted.x, y: reserve.context.inverted.y)
@@ -151,7 +149,7 @@ extension Transitions.Popout {
         }
         private func prepare(reserve: Reserve) {
             guard !reserve.context.misform, let scroll = reserve.context.oldViewController.scroll else { return }
-            scroll.offset(to: .point(x: 0, y: scroll.insets.top), animated: false)
+            scroll.offset(to: .point(x: 0.0, y: scroll.insets.top), animated: false)
         }
         private func transform() {
             guard let scale = scale, let translation = translation else { return }

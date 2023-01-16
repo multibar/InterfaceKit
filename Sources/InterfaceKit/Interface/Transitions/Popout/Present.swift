@@ -19,7 +19,6 @@ extension Transitions.Popout {
         public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
             return 0.66
         }
-        
         public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
             guard let context = Context(from: transitionContext, direction: .forward) else {
                 transitionContext.completeTransition(true)
@@ -36,7 +35,7 @@ extension Transitions.Popout {
             
             fade.frame = interview.frame
             mask.frame = oldFrame
-            mask.corner(radius: context.new.cornerRadius == 0 ? 16 : context.new.cornerRadius)
+            mask.corner(radius: context.new.radius == 0.0 ? 16.0 : context.new.radius)
 
             if !context.misform {
                 context.newView.transform = .scale(x: context.directed.x, y: context.directed.y)

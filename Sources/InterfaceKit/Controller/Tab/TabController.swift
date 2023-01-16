@@ -17,24 +17,13 @@ open class TabController: UIViewController, ViewController {
     public let identifier = UUID()
     public let content = UIView()
     
-    open var route: Route {
-        return viewController?.route ?? .none
-    }
-    open var forcePresent: Bool {
-        return false
-    }
-    open var containerA: Container? {
-        return viewController?.containerA
-    }
-    open var containerB: Container? {
-        return viewController?.containerB
-    }
-    open var multibar: Bool {
-        return viewController?.multibar ?? true
-    }
-    open var scroll: UIScrollView? {
-        return viewController?.scroll
-    }
+    open var route: Route { viewController?.route ?? .none }
+    open var forcePresent: Bool { false }
+    open var containerA: Container? { viewController?.containerA }
+    open var containerB: Container? { viewController?.containerB }
+    open var multibar: Bool { viewController?.multibar ?? true }
+    open var scroll: UIScrollView? { viewController?.scroll }
+    open var color: UIColor { viewController?.color ?? .x000000 }
 
     #if os(iOS)
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -98,6 +87,7 @@ open class TabController: UIViewController, ViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        view.color = .x000000
         setupContent()
     }
     open func setupContent() {

@@ -2,19 +2,48 @@ import UIKit
 import CoreKit
 
 public protocol ViewController: UIViewController, Router {
-    var identifier   : UUID { get }
-    var route        : Route { get }
-    var navBar       : NavigationController.Bar? { get set }
-    var navBarStyle  : NavigationController.Bar.Style { get }
-    var navBarItems  : [NavigationController.Bar.Item] { get }
-    var navBarHidden : Bool { get }
+    /// Unique controller identifier.
+    var identifier: UUID { get }
+    
+    /// Controller initial route.
+    var route: Route { get }
+    
+    /// Navigation Bar optional instance. Will be nil if items are empty.
+    var navBar: NavigationController.Bar? { get set }
+    
+    /// Navigation Bar style customization.
+    var navBarStyle: NavigationController.Bar.Style { get }
+    
+    /// Navitaion Bar items.
+    var navBarItems: [NavigationController.Bar.Item] { get }
+    
+    /// If true, Navigation Bar will be hidden.
+    var navBarHidden: Bool { get }
+    
+    /// If true, present and dismiss animated transitions will compensate Navigation Bar Height.
     var navBarOffsets: Bool { get }
-    var forcePresent : Bool { get }
-    var containerA   : Container? { get }
-    var containerB   : Container? { get }
-    var multibar     : Bool { get }
-    var content      : UIView { get }
-    var scroll       : UIScrollView? { get }
+    
+    /// If true, will be presented anyway.
+    var forcePresent: Bool { get }
+    
+    /// Transition container A.
+    var containerA: Container? { get }
+    
+    /// Transition container B.
+    var containerB: Container? { get }
+    
+    /// If false, multibar will be hidden for this controller.
+    var multibar: Bool { get }
+    
+    /// Controller content view.
+    var content: UIView { get }
+    
+    /// Controller scroll view.
+    var scroll: UIScrollView? { get }
+    
+    /// Controller view's color.
+    var color: UIColor { get }
+    
     func app(state: System.App.State)
     func user(state: System.User.State)
     func update(traits: UITraitCollection)
@@ -29,7 +58,6 @@ public protocol Container: UIView {
     var cargo: UIView { get set }
     var format: View.Format { get set }
     var adaptive: Bool { get }
-    var cornerRadius: CGFloat { get }
     var ratio: CGFloat { get }
     func will(accept cargo: UIView)
     func loaded()
@@ -57,9 +85,6 @@ extension ViewController {
     }
 }
 extension Container {
-    public var cornerRadius: CGFloat {
-        return layer.cornerRadius
-    }
     public var ratio: CGFloat {
         return bounds.width / bounds.height
     }

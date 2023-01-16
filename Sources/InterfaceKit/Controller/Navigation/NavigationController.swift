@@ -4,27 +4,14 @@ import CoreKit
 open class NavigationController: UINavigationController, ViewController {
     public let identifier = UUID()
     
-    open var route: Route {
-        return viewController?.route ?? .none
-    }
-    open var forcePresent: Bool {
-        return viewController?.forcePresent ?? false
-    }
-    open var containerA: Container? {
-        return viewController?.containerA
-    }
-    open var containerB: Container? {
-        return viewController?.containerB
-    }
-    open var multibar: Bool {
-        return viewController?.multibar ?? true
-    }
-    open var content: UIView {
-        return viewController?.content ?? view
-    }
-    open var scroll: UIScrollView? {
-        return viewController?.scroll
-    }
+    open var route: Route { viewController?.route ?? .none }
+    open var forcePresent: Bool { viewController?.forcePresent ?? false }
+    open var containerA: Container? { viewController?.containerA }
+    open var containerB: Container? { viewController?.containerB }
+    open var multibar: Bool { viewController?.multibar ?? true }
+    open var content: UIView { viewController?.content ?? view }
+    open var scroll: UIScrollView? { viewController?.scroll }
+    open var color: UIColor { viewController?.color ?? .x000000 }
 
     #if os(iOS)
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
