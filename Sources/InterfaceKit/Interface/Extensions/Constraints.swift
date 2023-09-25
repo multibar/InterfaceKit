@@ -266,9 +266,16 @@ extension UIView {
     }
     @discardableResult
     public func width(_ constant: CGFloat,
+                      rule: Constraint.Rule = .equal,
                       priority: UILayoutPriority? = nil,
                       active: Bool = true) -> Constraint {
-        let constraint = widthAnchor.constraint(equalToConstant: constant)
+        let constraint: NSLayoutConstraint = {
+            switch rule {
+            case .equal: return widthAnchor.constraint(equalToConstant: constant)
+            case .less: return widthAnchor.constraint(lessThanOrEqualToConstant: constant)
+            case .more: return widthAnchor.constraint(greaterThanOrEqualToConstant: constant)
+            }
+        }()
         if let priority { constraint.priority = priority }
         constraint.isActive = active
         return Constraint(constraint: constraint)
@@ -293,9 +300,16 @@ extension UIView {
     }
     @discardableResult
     public func height(_ constant: CGFloat,
+                       rule: Constraint.Rule = .equal,
                        priority: UILayoutPriority? = nil,
                        active: Bool = true) -> Constraint {
-        let constraint = heightAnchor.constraint(equalToConstant: constant)
+        let constraint: NSLayoutConstraint = {
+            switch rule {
+            case .equal: return heightAnchor.constraint(equalToConstant: constant)
+            case .less: return heightAnchor.constraint(lessThanOrEqualToConstant: constant)
+            case .more: return heightAnchor.constraint(greaterThanOrEqualToConstant: constant)
+            }
+        }()
         if let priority { constraint.priority = priority }
         constraint.isActive = active
         return Constraint(constraint: constraint)
